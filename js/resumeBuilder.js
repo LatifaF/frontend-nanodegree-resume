@@ -34,8 +34,8 @@ bio.display = function()
     $("#header").append(HTMLskillsStart);
     for (var indexCount = 0; indexCount < bio.skills.length; indexCount++) {
         $("#header").append(bio.skills[indexCount]);
-    };
-}
+    }
+};
 // function for appanding the contact information for deffirent selector ..
 // to siplyfiy the code and number of code line
 function contactInfoAppending (selectorName)
@@ -85,7 +85,7 @@ work.display = function(){
         }
     });
     $(".work-entry").append(formattedHtml);
-}
+};
 
 // Thired Section -- Project Information --
 var projects = {
@@ -116,7 +116,7 @@ projects.display = function(){
                 $(".project-entry").append(item[key]);
         }
     });
-}
+};
 
 // Fourth Section -- Education information --
 var education = {
@@ -158,7 +158,7 @@ education.display = function(){
         }
     });
     $(".education-entry").append(formattedOLCHtml);
-}
+};
 
 
 
