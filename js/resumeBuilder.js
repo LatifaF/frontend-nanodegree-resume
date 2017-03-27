@@ -1,140 +1,136 @@
 
+
 // First section -- Bio Section --
 var bio ={
-    "name" : HTMLheaderName.replace("%data%","Latifa Fawaz AlMasaad"),
-    "role" : HTMLheaderRole.replace("%data%","Web Developer"),
+    "name" : "Latifa Fawaz AlMasaad",
+    "role" : "Web Developer",
     "contacts" : {
-        "mobile" : HTMLmobile.replace("%data%","+966582222222"),
-        "email" : HTMLemail.replace("%data%","l.almasaad@gmail.com"),
-        "twitter" : HTMLtwitter.replace("%data%","@Latifaf_"),
-        "gitHub" : HTMLgithub.replace("%data%","LatifaF"),
-        "location": HTMLlocation.replace("%data%","Riyadh - Saudi Arabia")
+        "mobile" : "+966582222222",
+        "email" : "l.almasaad@gmail.com",
+        "twitter" : "@Latifaf_",
+        "github" : "LatifaF",
+        "location": "Riyadh - Saudi Arabia",
     },
-    "img" : HTMLbioPic.replace("%data%","images/Fofo.jpg"),
-    "welcomMessage" : HTMLwelcomeMsg.replace("%data%","Welcome to my resume"),
-    "skills" : [
-        HTMLskills.replace("%data%","asp.net"),
-        HTMLskills.replace("%data%","Html"),
-        HTMLskills.replace("%data%","css"),
-        HTMLskills.replace("%data%","js"),
-        HTMLskills.replace("%data%","c#"),
-        HTMLskills.replace("%data%","java"),
-        HTMLskills.replace("%data%","SQL server")
-    ]
-    };
+    "biopic" : "images/Fofo.jpg",
+    "welcomeMessage" : "Welcome to my resume",
+    "skills" : ["asp.net", "html", "css", "js", "c#", "java", "SQL"]
+};
 
 bio.display = function()
 {
-    $("#header").prepend(bio.role);
-    $("#header").prepend(bio.name);
+    var formattedname = HTMLheaderName.replace("%data%",bio.name);
+    var formattedrole = HTMLheaderRole.replace("%data%",bio.role);
+    var formattedConcontact = {
+        "mobile" : HTMLmobile.replace("%data%",bio.contacts.mobile),
+        "email" : HTMLemail.replace("%data%",bio.contacts.email),
+        "twitter" : HTMLtwitter.replace("%data%",bio.contacts.twitter),
+        "github" : HTMLgithub.replace("%data%",bio.contacts.github),
+        "location": HTMLlocation.replace("%data%",bio.contacts.location),
+    };
+    $("#header").prepend(formattedname + formattedrole);
 
-    contactInfoAppending("#topContacts");
-    $("#header").append(bio.img);
-    $("#header").append(bio.welcomMessage);
-    $("#header").append(HTMLskillsStart);
-    for (var indexCount = 0; indexCount < bio.skills.length; indexCount++) {
-        $("#header").append(bio.skills[indexCount]);
-    }
+    var htmlContact="";
+    for (var key in formattedConcontact)
+        if (formattedConcontact.hasOwnProperty(key))
+            htmlContact+=formattedConcontact[key];
+
+    $("#topContacts").append(htmlContact);
+    $("#footerContacts").append(htmlContact);
+    var formattedBioPic = HTMLbioPic.replace("%data%",bio.biopic);
+    var formattedWecolMessage = HTMLwelcomeMsg.replace("%data%",bio.welcomeMessage);
+    var formattedSkills = HTMLskillsStart;
+    for (var indexCount = 0; indexCount < bio.skills.length; indexCount++)
+        formattedSkills += HTMLskills.replace("%data%",bio.skills[indexCount]);
+
+    $("#header").append(formattedBioPic + formattedWecolMessage + formattedSkills);
 };
-// function for appanding the contact information for deffirent selector ..
-// to siplyfiy the code and number of code line
-function contactInfoAppending (selectorName)
-{
-    for (var key in bio.contacts) {
-    if ((bio.contacts).hasOwnProperty(key))
-        $(selectorName).append((bio.contacts)[key]);
-    }
-}
+
 // Second Section -- Work Section --
 var work = {
     "jobs": [
     {
-        "employer" : HTMLworkEmployer.replace("%data%","SAPTCO"),
-        "title" : HTMLworkTitle.replace("%data%","Developer"),
-        "dates" : HTMLworkDates.replace("%data%","2014 - now"),
-        "location" : HTMLworkLocation.replace("%data%","Riyadh- Saudi Arabia"),
-        "description" : HTMLworkDescription.replace("%data%","working using asp.net, be part the team who develope the intrnal portal of that serve the employees")
-    }
-    ],
-
-    "internship": [
+        "employer" : "SAPTCO",
+        "title" : "Developer",
+        "dates" : "2014 - now",
+        "location" : "Riyadh- Saudi Arabia",
+        "description" : "working using asp.net, be part the team who develope the intrnal portal of that serve the employees"
+    },
     {
 
-        "employer" : HTMLworkEmployer.replace("%data%","King Fahad Midical City"),
-        "title" : HTMLworkTitle.replace("%data%","Developer - internship"),
-        "dates" : HTMLworkDates.replace("%data%","may 2012 - julay 2012"),
-        "location" : HTMLworkLocation.replace("%data%","Riyadh- Saudi Arabia"),
-        "description" : HTMLworkDescription.replace("%data%","working in sql serve to implement a;; the data needed for small project for Saudi Cancer Socaity")
+        "employer" : "King Fahad Midical City",
+        "title" : "Developer - internship",
+        "dates" : "may 2012 - julay 2012",
+        "location" : "Riyadh- Saudi Arabia",
+        "description" : "working in sql serve to implement a;; the data needed for small project for Saudi Cancer Socaity"
     }
     ]
 };
 
 work.display = function(){
     $("#workExperience").append(HTMLworkStart);
-    var formattedHtml =""; // needed variable becuse of the title and employer have <a> tag slices bettwen them
+    var formattedJobs =""; // needed variable becuse of the title and employer have <a> tag slices bettwen them
     (work.jobs).forEach(function(item){
-        for (var key in item) {
-            if (item.hasOwnProperty(key))
-                formattedHtml += item[key];// $(".work-entry").append(item[key]);
-        }
+        formattedJobs += HTMLworkEmployer.replace("%data%",item.employer);
+        formattedJobs += HTMLworkTitle.replace("%data%",item.title);
+        formattedJobs += HTMLworkDates.replace("%data%",item.dates);
+        formattedJobs += HTMLworkLocation.replace("%data%",item.location);
+        formattedJobs += HTMLworkDescription.replace("%data%",item.description);
     });
-    (work.internship).forEach(function(item){
-        for (var key in item) {
-            if (item.hasOwnProperty(key))
-                formattedHtml+=item[key];
-        }
-    });
-    $(".work-entry").append(formattedHtml);
+
+    $(".work-entry").append(formattedJobs);
 };
 
 // Thired Section -- Project Information --
 var projects = {
-    "project": [
+    "projects": [
     {
-        "title": HTMLprojectTitle.replace("%data%","SmartSpeaker Project"),
-        "dates": HTMLprojectDates.replace("%data%","2012"),
-        "description": HTMLprojectDescription.replace("%data%","An iPad application develope using xcode and objective c to create application that help people with speaking disapilty in the arabs contiry, it is work by converting text to speash and using some alghorithem to be a smart application to smplyfiy the way of typing and predicte the words based on the time and location of the user, it is intellagent to work and grow it is own data based on the user."),
-        "images": [
-        HTMLprojectImage.replace("%data%","images/smartspeaker.jpg")]
+        "title": "SmartSpeaker Project",
+        "dates": "2012",
+        "description": "An iPad application develope using xcode and objective c to create application that help people with speaking disapilty in the arabs contiry, it is work by converting text to speash and using some alghorithem to be a smart application to smplyfiy the way of typing and predicte the words based on the time and location of the user, it is intellagent to work and grow it is own data based on the user.",
+        "images": ["images/smartspeaker.jpg"]
     },
     {
-        "title": HTMLprojectTitle.replace("%data%","Saptco intrnal portal"),
-        "dates": HTMLprojectDates.replace("%data%","2015"),
-        "description": HTMLprojectDescription.replace("%data%","developing mant serveses for the saptco employee, to convert all the paper work in to the portal."),
-        "images": [
-        HTMLprojectImage.replace("%data%","images/saptcop.jpg")]
+        "title": "Saptco intrnal portal",
+        "dates": "2015",
+        "description": "developing mant serveses for the saptco employee, to convert all the paper work in to the portal.",
+        "images": ["images/saptcop.jpg"]
     },
     ]
 };
 
 projects.display = function(){
     $("#projects").append(HTMLprojectStart);
-
-    (projects.project).forEach(function(item){
-        for (var key in item) {
-            if (item.hasOwnProperty(key))
-                $(".project-entry").append(item[key]);
-        }
+    var formattedProjects = "";
+    (projects.projects).forEach(function(item){
+        formattedProjects += HTMLprojectTitle.replace("%data%",item.title);
+        formattedProjects += HTMLprojectDates.replace("%data%",item.dates);
+        formattedProjects += HTMLprojectDescription.replace("%data%",item.description);
+        for(var key in item)
+        if(key === "images")
+            for (var count=0; count < item[key].length ; count++) {
+                formattedProjects += HTMLprojectImage.replace("%data%",(item[key])[count]);
+            }
     });
+    $(".project-entry").append(formattedProjects);
 };
 
 // Fourth Section -- Education information --
 var education = {
     "schools": [
     {
-        "name": HTMLschoolName.replace("%data%","king saud university"),
-        "degree": HTMLschoolDegree.replace("%data%","BA"),
-        "dates": HTMLschoolDates.replace("%data%","2013"),
-        "location": HTMLschoolLocation.replace("%data%","ar Riyadh - Saudi Arabia"),
-        "majors": HTMLschoolMajor.replace("%data%","IT"),
-        "url": HTMLonlineURL.replace("%data%","www.ksu.edu")
+        "name": "king saud university",
+        "degree": "BA",
+        "dates": "2013",
+        "location": "ar Riyadh - Saudi Arabia",
+        "majors": ["IT"],
+        "url": "www.ksu.edu"
     }],
     "onlineCourses": [
     {
-        "title": HTMLonlineTitle.replace("%data%","front end web development"),
-        "school": HTMLonlineSchool.replace("%data%","Udacity"),
-        "dates": HTMLonlineDates.replace("%data%","feb2017 - may2017"),
-        "url": HTMLonlineURL.replace("%data%","www.Udacity.com")
+        "title": "front end web development",
+        "school": "Udacity",
+        "dates": "feb2017 - may2017",
+        "url": "www.Udacity.com"
     }
     ]
 };
@@ -143,22 +139,26 @@ education.display = function(){
     $("#education").append(HTMLschoolStart);
     var formattedSchoolHtml="";
     (education.schools).forEach(function(item){
-        for (var key in item) {
-            if (item.hasOwnProperty(key))
-                formattedSchoolHtml += item[key];
-        }
+        formattedSchoolHtml += HTMLschoolName.replace("%data%",item.name);
+        formattedSchoolHtml += HTMLschoolDegree.replace("%data%",item.degree);
+        formattedSchoolHtml += HTMLschoolDates.replace("%data%",item.dates);
+        formattedSchoolHtml += HTMLschoolLocation.replace("%data%",item.location);
+        formattedSchoolHtml += HTMLschoolMajor.replace("%data%",item.majors);
+        formattedSchoolHtml += HTMLonlineURL.replace("%data%",item.url);
     });
     $(".education-entry").append(formattedSchoolHtml);
 
     var formattedOLCHtml = HTMLonlineClasses;
     (education.onlineCourses).forEach(function(item){
-        for (var key in item) {
-            if (item.hasOwnProperty(key))
-                formattedOLCHtml += item[key];
-        }
+        formattedOLCHtml += HTMLonlineTitle.replace("%data%",item.title);
+        formattedOLCHtml += HTMLonlineSchool.replace("%data%",item.school);
+        formattedOLCHtml += HTMLonlineDates.replace("%data%",item.dates);
+        formattedOLCHtml += HTMLonlineURL.replace("%data%",item.url);
     });
     $(".education-entry").append(formattedOLCHtml);
 };
+
+// map section
 
 
 
@@ -167,4 +167,5 @@ bio.display();
 work.display();
 projects.display();
 education.display();
-contactInfoAppending("#footerContacts");
+$("#mapDiv").append(googleMap);
+initializeMap();
